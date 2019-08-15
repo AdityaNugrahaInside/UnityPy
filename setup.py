@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="UnityPy",
 	packages = setuptools.find_packages(),
-    version="1.1.2.4",
+    version="1.2.0.0b",
     author="K0lb3",
     description="A pythonic port of AssetStudio by Perfare",
     long_description=long_description,
@@ -26,7 +26,6 @@ setuptools.setup(
 		"Topic :: Multimedia :: Graphics",
     ],
 	install_requires=[
-		"decrunch",
 		"fsb5",
 		"lz4",
 		"Pillow",
@@ -34,4 +33,7 @@ setuptools.setup(
 		"colorama",
 		"termcolor"
     ],
+	extras_require = {
+        'Decrunch Support':  ["decrunch"]
+    }
 )

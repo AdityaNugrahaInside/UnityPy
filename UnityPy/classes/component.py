@@ -1,17 +1,8 @@
-from .object import Object, field
+from .EditorExtension import EditorExtension
+from .PPtr import PPtr
 
 
-class Component(Object):
-	game_object = field("m_GameObject")
-
-
-class Behaviour(Component):
-	enabled = field("m_Enabled", bool)
-
-
-class Transform(Component):
-	position = field("m_LocalPosition")
-	rotation = field("m_LocalRotation")
-	scale = field("m_LocalScale")
-	parent = field("m_Father")
-	children = field("m_Children")
+class Component(EditorExtension):
+	def __init__(self, reader):
+		super().__init__(reader = reader)
+		self.GameObject = PPtr(reader)  # GameObject
