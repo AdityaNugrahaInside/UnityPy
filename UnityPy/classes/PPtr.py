@@ -2,7 +2,7 @@ class PPtr:
 	def __init__(self, reader):
 		#super().__init__(reader = reader)
 		pass
-	
+
 	def __new__(cls, reader):
 		cls.file_id = reader.read_int()
 		cls.path_id = reader.read_int() if reader.version2 < 14 else reader.read_long()
@@ -11,6 +11,17 @@ class PPtr:
 			return cls.assets_file.objects[cls.path_id]
 		else:
 			return super(PPtr, cls).__new__(cls)
+
+	def __getattr__(self, item):
+		return None
+
+	def __repr__(self):
+		return "<%s %s>" % (
+			self.__class__.__name__
+		)
+	
+	def __bool__(self):
+		return False
 
 
 """

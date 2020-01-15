@@ -1,11 +1,17 @@
 from enum import IntEnum
-
+from PIL import ImageOps
 from .Mesh import BoneWeights4, SubMesh, VertexData
 from .NamedObject import NamedObject
 from .PPtr import PPtr
+from ..export import SpriteHelper
 
 
 class Sprite(NamedObject):
+	
+	@property
+	def image(self):
+		return SpriteHelper.get_image_from_sprite(self)
+	
 	def __init__(self, reader):
 		super().__init__(reader = reader)
 		version = self.version
@@ -29,7 +35,7 @@ class Sprite(NamedObject):
 		if version[0] >= 2017:  # 2017 and up
 			first = reader.read_bytes(16)  # GUID
 			second = reader.read_long()
-			self.m_RenderDataKey = {first: second}
+			self.m_RenderDataKey = (first, second)
 			self.m_AtlasTags = reader.read_string_array()
 			self.m_SpriteAtlas = PPtr(reader)  # SpriteAtlas
 		
